@@ -6,7 +6,6 @@ import * as firebase from 'firebase';
 export default function App() {
   useEffect(()=>{
     firebase.auth().onAuthStateChanged((user) => {
-      console.log("Este es el user: " + user)
     })
   }, [])
 

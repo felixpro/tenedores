@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default function Favorites() {
+export default function userGuest() {
 	return (<View>
-		<Text>Los reales favoritos</Text>
+		<Text>userGuest...</Text>
 	</View>)
 }
