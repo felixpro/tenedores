@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
 import * as firebase from 'firebase';
 import Loading from "../../components/Loading"
 import UserGuest from "./UserGuest";
@@ -12,7 +11,6 @@ export default function Account() {
 	useEffect(() => {
 
 		firebase.auth().onAuthStateChanged((user) => {
-			console.log("Este es el user: " + user)
 			!user
 				? setLogin(false)
 				: setLogin(true);
