@@ -1,14 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { Input, Icon, Button } from "react-native-elements";
+import {validateEmail} from "../../utils/validation";
+import {size, isEmpty} from "lodash";
 
-export default function RegisterForm() {
+
+export default function RegisterForm(props) {
+	const {toastRef} = props;
+
 	const [showPassword, setShowPassword] = useState( false );
 	const [showRepeatPassword, setShowRepeatPassword] = useState( false );
 	const [formData, setFormData] = useState( defaultFormValue );
 
 	const onSubmit = () => {
-		console.log( formData )
+
+		// Validation
+		if (
+			isEmpty(formData.email) ||
+			isEmpty(formData.password) ||
+			isEmpty(formData.repeatPassword)) {
+			toastRef.current.show("todos los campos son obligatorios")
+	}else if (!validateEmail(formData.email)) {
+		toastRef.current.show("Email no es correcto")
+	}else if (formData.password !== formData.repeatPassword) {
+		toastRef.current.show("Las contra deben ser iguales")
+	}else if (size(formData.password) < 6) {
+		toastRef.current.show("La contrasena tiene que tener al menos 6 caracteres")
+	}else {
+		toastRef.current.show("ok")	
+		}
 	}
 
 	// Update state with the new value
