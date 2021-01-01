@@ -1,22 +1,61 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
-import {Input, Icon, Button} from "react-native-elements";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { Input, Icon, Button } from "react-native-elements";
 
 export default function RegisterForm() {
-	return (<View style={styles.formContainer}>
-		<Input placeholder="Correo Electronico" containerStyle={styles.inputForm}/>
-		<Input placeholder="Contraseña" containerStyle={styles.inputForm} password={true} secureTextEntry={true}/>
-		<Input placeholder="Repetir Contraseña" containerStyle={styles.inputForm} password={true} secureTextEntry={true}/>
+	const [showPassword, setShowPassword] = useState( false );
+	const [showRepeatPassword, setShowRepeatPassword] = useState( false );
+	const [formData, setFormData] = useState( defaultFormValue );
 
-		<Button title="Unirse" containerStyle={styles.btnContainerRegister} buttonStyle={styles.btnRegister}/>
-	</View>)
+	const onSubmit = () => {
+		console.log( formData )
+	}
+
+	// Update state with the new value
+	const onChange = ( e, type ) => {
+		// console.log( e.nativeEvent.text )
+		 setFormData( { ...formData, [ type ]: e.nativeEvent.text } )
+
+	}
+
+	return ( <View style={styles.formContainer}>
+		<Input
+			placeholder="Correo Electronico"
+			containerStyle={styles.inputForm}
+			rightIcon={<Icon type = "material-community" name = "at"
+			iconStyle = {	styles.iconRight}/>}
+			onChange={( e ) => onChange( e, "email" )}
+		/>
+		<Input
+			placeholder="Contraseña"
+			containerStyle={styles.inputForm}
+			password={true}
+			secureTextEntry={showPassword ? false: true}
+			rightIcon={<Icon type = "material-community" name = {	showPassword ? "eye-off-outline" : "eye-outline"} onPress = {() => setShowPassword( !showPassword )}
+			iconStyle = {styles.iconRight	} />}
+			onChange={( e ) => onChange( e, "password" )}/>
+		<Input
+			placeholder="Repetir Contraseña"
+			containerStyle={styles.inputForm}
+			password={true}
+			secureTextEntry={showRepeatPassword ? false : true}
+			rightIcon={<Icon type = "material-community" name = { showRepeatPassword ? "eye-off-outline" : "eye-outline" } onPress = {	() => setShowRepeatPassword( !showRepeatPassword )}
+			iconStyle = {styles.iconRight} />}
+			onChange={( e ) => onChange( e, "repeatPassword" )}/>
+
+		<Button title="Unirse" containerStyle={styles.btnContainerRegister} buttonStyle={styles.btnRegister} onPress={onSubmit}/>
+	</View> )
 }
 
-const styles = StyleSheet.create({
+function defaultFormValue() {
+	return { email: "", password: "", repeatPassword: "" }
+}
+
+const styles = StyleSheet.create( {
 	formContainer: {
-		// flex: 1,
-		// alignItems: "center",
-		// justifyContent: 'center',
+		flex: 1,
+		alignItems: "center",
+		justifyContent: 'center',
 		marginTop: 30
 	},
 	inputForm: {
@@ -29,5 +68,8 @@ const styles = StyleSheet.create({
 	},
 	btnRegister: {
 		backgroundColor: "#00a680"
+	},
+	iconRight: {
+		color: "#c1c1c1"
 	}
-});
+} );

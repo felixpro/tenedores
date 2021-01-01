@@ -1,15 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import {Divider} from "react-native-elements";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import RegisterForm from "../../components/Account/RegisterForm"
 
 export default function Register() {
-	return (<ScrollView>
+	return (<KeyboardAwareScrollView>
 		<Image source={require("../../../assets/img/5-tenedores.png")} resizeMode="contain" style={styles.logo}/>
 		<View style={styles.viewForm}>
 			<RegisterForm/>
 		</View>
-	</ScrollView>)
+	</KeyboardAwareScrollView>)
 }
 
 const styles = StyleSheet.create({
