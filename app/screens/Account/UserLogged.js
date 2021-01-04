@@ -23,7 +23,12 @@ export default function userLogged() {
   }, [])
 
   return (<View style={styles.viewUserInfo}>
-    {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef}/>}
+    {userInfo && <InfoUser
+                    userInfo={userInfo}
+                    toastRef={toastRef}
+                    setLoading={setLoading}
+                    setLoadingText={setLoadingText}
+                  />}
 
     <Text>Account Options</Text>
     <Button
